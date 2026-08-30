@@ -20,16 +20,30 @@ def recarregar_tarefas():
   if not tarefas:
     st.info(body="Não há tarefas adicionadas")
   else:
-    st.dataframe(data=tarefas, column_config={ 
-      "status": "Status",
+    st.data_editor(data=tarefas, column_config={ 
+      "status": st.column_config.SelectboxColumn(
+        "Status",
+        options=["Não iniciada", "Concluída", "Em progresso"]
+      ),
       "nome": "Nome",
-      "id": None 
-    })
+      "id": None
+    }, disabled=["id"], key="dados_editados", on_change=atualizar_tarefa)
 
 def excluir_tarefas(lista_tarefas):
 
   for tarefa in lista_tarefas:
     BANCO_DADOS.collection("tarefas").document(tarefa["id"]).delete()
+
+def atualizar_tarefa():
+
+  dados_atualizados = st.session_state["dados_editados"]["edited_rows"]
+
+  tarefas = pegar_tarefas()
+
+  for id in dados_atualizados.items():
+    BANCO_DADOS.collection("tarefas").document(tarefas[id[0]]["id"]).update(id[1])
+
+    st.success(body="Dados alterados com sucesso!")
 
 def main():
 
@@ -66,7 +80,7 @@ def main():
       tarefas_selecionadas = st.multiselect(label="Excluir tarefas", options=pegar_tarefas(), format_func=lambda tarefa: tarefa["nome"])
 
     with col2:
-      excluir = st.form_submit_button(label="Excluir", width="stretch")
+      excluir = st.form_submit_button(label="Excluir", width="stretch", icon=":material/delete:")
 
     if not tarefas_selecionadas and excluir:
       st.warning(body="Nenhuma tarefa selecionada")
