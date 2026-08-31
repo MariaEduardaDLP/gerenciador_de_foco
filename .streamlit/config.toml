@@ -1,0 +1,26 @@
+[theme]
+
+base = "light"
+
+primaryColor = "#1f1a38ff"
+
+backgroundColor = "#dbcdc6ff"
+
+secondaryBackgroundColor = "#dd99bbff"
+
+textColor = "#000000"
+
+baseFontSize = 20
+
+baseRadius = "medium"
+buttonRadius = "large"
+
+borderColor = "#7b506fff"
+
+font="JetBrains Mono:https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+
+[theme.sidebar]
+
+backgroundColor = "#1f1a38ff"
+
+textColor = "#FFFFFF"
