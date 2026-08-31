@@ -2,6 +2,7 @@ import streamlit as st
 from google.cloud import firestore
 
 BANCO_DADOS = firestore.Client.from_service_account_json("firebase.json")
+st.set_page_config(page_title="Tarefas", page_icon=":material/book_ribbon:", layout="wide", initial_sidebar_state="collapsed")
 
 def pegar_tarefas():
 
@@ -70,7 +71,7 @@ def main():
         }
       )
 
-      st.success(body="Tarefa criada!")
+      st.toast(body="Tarefa criada!", duration="short")
 
   with st.form("excluir_tarefas"):
 
@@ -86,7 +87,7 @@ def main():
       st.warning(body="Nenhuma tarefa selecionada")
     elif excluir:
       excluir_tarefas(tarefas_selecionadas)
-      st.success(body="Tarefas excluídas!")
+      st.toast(body="Tarefas excluídas!", duration="short")
 
   recarregar_tarefas()
 
