@@ -3,9 +3,8 @@ from google.cloud import firestore
 
 # == Se estiver executando localmente, comente este bloco de código ==
 key_dict = dict(st.secrets["firestore"])
-creds = firestore.Client.from_service_account_info(key_dict)
 
-BANCO_DADOS = firestore.Client(credentials=creds, project=key_dict["project_id"])
+BANCO_DADOS = firestore.Client.from_service_account_info(key_dict)
 
 # == Para uso local ==
 # BANCO_DADOS = firestore.Client.from_service_account_json("firebase.json")
