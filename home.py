@@ -1,7 +1,15 @@
 import streamlit as st
 from google.cloud import firestore
 
-BANCO_DADOS = firestore.Client.from_service_account_json("firebase.json")
+# == Se estiver executando localmente, comente este bloco de código ==
+key_dict = dict(st.secrets["firestore"])
+creds = firestore.Client.from_service_account_info(key_dict)
+
+BANCO_DADOS = firestore.Client(credentials=creds, project=key_dict["project_id"])
+
+# == Para uso local ==
+# BANCO_DADOS = firestore.Client.from_service_account_json("firebase.json")
+
 st.set_page_config(page_title="Tarefas", page_icon=":material/book_ribbon:", layout="wide", initial_sidebar_state="collapsed")
 
 def pegar_tarefas():
